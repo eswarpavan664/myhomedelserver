@@ -13,7 +13,7 @@ const path = require("path");
 const requireToken = require('./requireToken');
 const requireTokenAdmin = require('./requireTokenAdmin');
 const requireDeliveryToken =require('./requireDeliveryToken');
-
+require("dotenv").config();
 const accountSid = 'AC29f151cc8750b38df5b7a83a0e218e64';
 const authToken = '4c4d95fa01eb63649db7e3aea00f8323'; 
 const client = new twilio(accountSid, authToken);
@@ -172,6 +172,6 @@ app.get('/send-text', (req, res) => {
 })
  
 
-app.listen(5000,()=>{
+app.listen(process.env.PORT || 5000,()=>{
     console.log("server is runnung on port 5000");
 })
