@@ -10,6 +10,25 @@ const Delivery = mongoose.model('Delivery')
 const Orders = mongoose.model('Orders');
 const AdminUser = mongoose.model('AdminUser');
 const Item = mongoose.model('Items');
+const SuperAdmin = mongoose.model('SuperAdminSchema');
+
+
+
+
+
+ 
+
+ 
+
+
+
+
+
+
+
+
+
+
  
 router.post('/UserSignuporSigin',async (req,res)=>{
    
@@ -32,7 +51,6 @@ router.post('/UserSignuporSigin',async (req,res)=>{
     }catch(err){
       return res.status(422).send(err.message)
     }
-    
     
 })
 
@@ -129,6 +147,8 @@ router.post('/UserSignin',async (req,res)=>{
 
 
 
+// Admin siginin 
+
 router.post('/AdminSignup',async (req,res)=>{
    
   const {email,password,PhoneNumber,Name,Role,ShopName,Address,AdminId,ShopPhoto} = req.body;
@@ -145,6 +165,9 @@ router.post('/AdminSignup',async (req,res)=>{
   
   
 })
+
+
+//Admin siginup
 
 router.post('/AdminSignin',async (req,res)=>{
   const {email,password} = req.body
@@ -166,6 +189,9 @@ router.post('/AdminSignin',async (req,res)=>{
 
 
 })
+
+
+
 
 
 
@@ -360,7 +386,7 @@ router.put('/UpdateDeliveryOrderStatus',async (req,res)=>{
  
   Orders.findByIdAndUpdate(orderId,{DeliveryManId:deliverymanid,OrderStatus:status},{useFindAndModify:false})
   .then(data=>{
-    res.send(data);
+    console.log();
   })
   .catch(err=>{
     res.send("error....!");
@@ -460,6 +486,37 @@ router.get('/GetOrdersOfDeliveryBoy', function(req, res, next) {
   const id =  req.query.id;
 
   Orders.find({DeliveryManId:id},(err, docs) => {
+      if (!err) {
+           res.send(docs);
+      } else {
+          console.log('Failed to retrieve the Course List: ' + err);
+      }
+  });
+  
+
+});
+
+
+
+router.get('/GetAdmins', function(req, res, next) {
+  
+
+  AdminUser.find({Role:"Admin"} ,(err, docs) => {
+      if (!err) {
+           res.send(docs);
+      } else {
+          console.log('Failed to retrieve the Course List: ' + err);
+      }
+  });
+  
+
+});
+
+
+router.get('/GetUsers', function(req, res, next) {
+ 
+
+  User.find( (err, docs) => {
       if (!err) {
            res.send(docs);
       } else {

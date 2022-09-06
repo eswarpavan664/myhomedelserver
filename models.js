@@ -159,6 +159,35 @@ const UserSchema = new mongoose.Schema({
 
 
 
+
+const SuperAdminSchema = new mongoose.Schema({
+    email:{
+        type:String,
+       
+    },
+    Name:{
+        type:String,
+        
+    },
+    PhoneNumber:{
+        type:String,
+        required:true
+    },
+    Role:{
+        type:String,
+        required:true
+    },
+    Address:{
+        type:String,
+    },
+    SuperAdminId:{
+        type:String,
+        required:true
+    },
+})
+
+
+
 const AdminUserSchema = new mongoose.Schema({
     email:{
         type:String,
@@ -326,4 +355,6 @@ mongoose.model('Items',AddItemSchema);
 mongoose.model('Orders',OrderSchema);
 mongoose.model('AdminUser',AdminUserSchema);
 mongoose.model('Delivery',DeliveryManLocationSchema);
+mongoose.model('SuperAdminSchema',SuperAdminSchema);
+ 
  

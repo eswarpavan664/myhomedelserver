@@ -109,7 +109,9 @@ function errHandler(err, req, res, next) {
 app.use(errHandler);
 
  
- 
+
+
+//customer data
 app.get('/',requireToken,(res,req)=>{
     res.send({
         email:req.user.email,
@@ -122,6 +124,10 @@ app.get('/',requireToken,(res,req)=>{
     })
 
 })
+
+
+
+//Admin data
 
 app.get('/GetAdmin',requireTokenAdmin,(req,res)=>{
     res.send({
@@ -138,6 +144,9 @@ app.get('/GetAdmin',requireTokenAdmin,(req,res)=>{
 
     
 })
+
+
+//delivery boy data
 
 app.get('/GetDeliveryMan',requireDeliveryToken,(req,res)=>{
     res.send({
