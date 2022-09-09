@@ -79,10 +79,10 @@ app.post("/single", upload.single("image","Name"), async(req, res) => {
     console.log(req.file.filename);
     
     console.log(req.body.ItemName+"-"+req.body.Price);
-    const {ItemName,ItemPrice,ItemDiscription,ShopName,ShopId,ItemId} = req.body;
+    const {ItemName,ItemPrice,ItemDiscription,ShopName,ShopId,ItemId,AdminId,ItemType,ItemCategory} = req.body;
     var ProductImage="items/"+req.file.filename
   try{
-    const item = new Item({ItemName,ItemPrice,ProductImage,ItemDiscription,ShopName,ShopId,ItemId});
+    const item = new Item({ItemName,ItemPrice,ProductImage,ItemDiscription,ShopName,ShopId,ItemId,AdminId,ItemType,ItemCategory});
     await  item.save();
     
   }catch(err){
@@ -139,6 +139,7 @@ app.get('/GetAdmin',requireTokenAdmin,(req,res)=>{
         Address:req.user.Address,
         ShopPhoto:req.user.ShopPhoto,
         AdminId:req.user.AdminId,
+        ShopType:req.user.ShopType,
         
     })
 

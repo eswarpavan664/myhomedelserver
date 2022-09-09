@@ -126,9 +126,19 @@ const AddItemSchema = new mongoose.Schema({
     ItemId:{
         type:String,
         required:true
-    }
-     
-
+    },
+    AdminId:{
+        type:String,
+        required:true
+    },
+    ItemType:{
+        type:String,
+        required:true
+    },
+    ItemCategory:{
+        type:String,
+        required:true
+    },
 })
 
 const UserSchema = new mongoose.Schema({
@@ -226,6 +236,10 @@ const AdminUserSchema = new mongoose.Schema({
     },
     ShopPhoto:{
         type:String
+    },
+    ShopType:{
+        type:String,
+        required:true
     },
 
 })

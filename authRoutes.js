@@ -151,10 +151,10 @@ router.post('/UserSignin',async (req,res)=>{
 
 router.post('/AdminSignup',async (req,res)=>{
    
-  const {email,password,PhoneNumber,Name,Role,ShopName,Address,AdminId,ShopPhoto} = req.body;
+  const {email,password,PhoneNumber,Name,Role,ShopName,Address,AdminId,ShopPhoto,ShopType} = req.body;
 
   try{
-    const user = new AdminUser({email,password,PhoneNumber,Name,Role,ShopName,Address,AdminId,ShopPhoto});
+    const user = new AdminUser({email,password,PhoneNumber,Name,Role,ShopName,Address,AdminId,ShopPhoto,ShopType});
     await  user.save();
     const token = jwt.sign({userId:user._id},jwtkey)
     res.send({token})
@@ -199,10 +199,10 @@ router.post('/AdminSignin',async (req,res)=>{
 
 router.post('/AddItem',async (req,res)=>{
    
-  const {ItemName,ItemPrice,ProductImage,ItemDiscription,AdminId} = req.body;
+  const {ItemName,ItemPrice,ProductImage,ItemDiscription,ShopName,ShopId,AdminId,ItemType,ItemCategory} = req.body;
 
   try{
-    const user = new User({ItemName,ItemPrice,ProductImage,ItemDiscription,AdminId});
+    const user = new User({ItemName,ItemPrice,ProductImage,ItemDiscription,ShopName,ShopId,AdminId,ItemType,ItemCategory});
     await  Item.save();
     
   }catch(err){
@@ -526,4 +526,49 @@ router.get('/GetUsers', function(req, res, next) {
   
 
 });
+
+
+
+router.get('/GetItemsByCat', function(req, res, next) {
+ 
+const id  =req.query.id;
+  Item.find({IdtemType:id},(err, docs) => {
+      if (!err) {
+           res.send(docs);
+      } else {
+          console.log('Failed to retrieve the Course List: ' + err);
+      }
+  });
+  
+
+});
+
+router.get('/GetItemByVegOrNonVeg', function(req, res, next) {
+ 
+  const id  =req.query.id;
+    Item.find({ItemCategory:id},(err, docs) => {
+        if (!err) {
+             res.send(docs);
+        } else {
+            console.log('Failed to retrieve the Course List: ' + err);
+        }
+    });
+    
+  
+  });
+
+
+router.get('/GetShopsByType', function(req, res, next) {
+ 
+    const id  =req.query.id;
+      AdminUser.find({ShopType:id},(err, docs) => {
+          if (!err) {
+               res.send(docs);
+          } else {
+              console.log('Failed to retrieve the Course List: ' + err);
+          }
+      });
+      
+    
+    });
 module.exports = router
