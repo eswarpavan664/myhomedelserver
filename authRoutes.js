@@ -333,6 +333,20 @@ router.get('/GetOrders', function(req, res, next) {
 });
 
 
+router.get('/GetOrdersForSuperAdmin', function(req, res, next) {
+  
+  Orders.find((err, docs) => {
+      if (!err) {
+           res.send(docs);
+      } else {
+          console.log('Failed to retrieve the Course List: ' + err);
+      }
+  });
+  
+
+});
+
+
 
 
 //user orders
