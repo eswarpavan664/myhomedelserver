@@ -441,6 +441,20 @@ router.put('/OrderAcceptanceStatus',async (req,res)=>{
 })
 
 
+/////
+
+router.put('/OrderCancel',async (req,res)=>{
+  const {status,orderId} = req.body
+ 
+  Orders.findByIdAndUpdate(orderId,{ OrderStatus:status},{useFindAndModify:false})
+  .then(data=>{
+    res.send(data);
+  })
+  .catch(err=>{
+    res.send("error....!");
+  })
+})
+
 
 
 
@@ -563,10 +577,12 @@ router.get('/GetUsers', function(req, res, next) {
 router.get('/GetItemsByCat', function(req, res, next) {
  
 const id  =req.query.id;
-  Item.find({IdtemType:id},(err, docs) => {
-      if (!err) {
+console.log(id)
+  Item.find({ItemType:"Starters"},(err, docs) => {
+      if (docs.length>0) {
            res.send(docs);
       } else {
+        res.send("done")
           console.log('Failed to retrieve the Course List: ' + err);
       }
   });
