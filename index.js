@@ -158,6 +158,7 @@ app.get('/GetDeliveryMan',requireDeliveryToken,(req,res)=>{
         Latitude:req.user.Latitude,
         Longitude:req.user.Longitude,
         AdhurCard:req.user.AdhurCard,
+        _id:req.user._id,
         
     })
 

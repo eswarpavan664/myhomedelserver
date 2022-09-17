@@ -32,7 +32,7 @@ const SuperAdmin = mongoose.model('SuperAdminSchema');
  
 router.post('/UserSignuporSigin',async (req,res)=>{
    
-    const {PhoneNumber,email,Name,Role,Address,Id } = req.body;
+  const {PhoneNumber,email,Name,Role,Address,Id } = req.body;
   let user=false
     try{
 
@@ -53,6 +53,23 @@ router.post('/UserSignuporSigin',async (req,res)=>{
     }
     
 })
+
+
+router.get('/GetUserNewOrOld', function(req, res, next) {
+ 
+  const id  =req.query.id;
+   
+  User.find({PhoneNumber:"+91"+id},(err, docs) => {
+        if(docs.length>0) {
+          res.send({"Status":"Yes"});
+        } else {
+          res.send({"Status":"No"});
+        }
+    });
+    
+  
+});
+
 
 router.post('/UserDeliveryMansignup',async (req,res)=>{
    
@@ -408,7 +425,7 @@ router.put('/UpdateDeliveryOrderStatus',async (req,res)=>{
 })
 
 
-
+///////////////
 
 
 router.put('/OrderAcceptanceStatus',async (req,res)=>{
@@ -584,5 +601,23 @@ router.get('/GetShopsByType', function(req, res, next) {
       });
       
     
+});
+
+router.get('/GetDeliveryLocation', function(req, res, next) {
+ 
+  const id  =req.query.id;
+    Delivery.find({DeliveryManId:id},(err, docs) => {
+        if (!err) {
+             res.send(docs);
+        } else {
+            console.log('Failed to retrieve the Course List: ' + err);
+        }
     });
+    
+  
+});
+
+
+
+
 module.exports = router
