@@ -393,7 +393,7 @@ router.get('/GetUser', function(req, res, next) {
   const id ="+"+req.query.id.replaceAll('"', '');
 
  console.log(id.replace(/ /g,''))
-  User.find({Id:id.replace(/ /g,'')},(err, docs) => {
+  User.find({email:id.replace(/ /g,'')},(err, docs) => {
       if (!err) {
            res.send(docs);
       } else {
