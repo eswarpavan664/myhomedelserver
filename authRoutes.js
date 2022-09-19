@@ -479,7 +479,7 @@ router.post('/OrderDelivered', function(req, res, next) {
 //get order for delivery boys
 
 router.get('/GetOrdersByStatus', function(req, res, next) {
-  const status =  req.query.status.replaceAll('"', '');;
+  const status =  req.query.status.replaceAll('"', '');
 
   Orders.find({OrderStatus:status},(err, docs) => {
       if (!err) {
@@ -528,8 +528,8 @@ router.put('/UpdateUserDetails',async (req,res)=>{
 
 
 router.get('/GetOrdersOfDeliveryBoy', function(req, res, next) {
-  const id =  req.query.id;
-  const status =req.query.status;
+  const id =  req.query.id.replaceAll('"', '');
+  const status =  req.query.status.replaceAll('"', '');
 
   Orders.find({DeliveryManId:id,OrderStatus:status},(err, docs) => {
       if (!err) {
@@ -538,6 +538,7 @@ router.get('/GetOrdersOfDeliveryBoy', function(req, res, next) {
           console.log('Failed to retrieve the Course List: ' + err);
       }
   });
+  console.log(id,status);
   
 
 });
