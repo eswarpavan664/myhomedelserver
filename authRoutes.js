@@ -417,7 +417,7 @@ router.put('/UpdateDeliveryOrderStatus',async (req,res)=>{
  
   Orders.findByIdAndUpdate(orderId,{DeliveryManId:deliverymanid,OrderStatus:status},{useFindAndModify:false})
   .then(data=>{
-    console.log();
+    res.send(data)
   })
   .catch(err=>{
     res.send("error....!");
@@ -432,7 +432,7 @@ router.put('/OrderAcceptanceStatus',async (req,res)=>{
   const {status,orderId} = req.body
  
   Orders.findByIdAndUpdate(orderId,{ OrderStatus:status},{useFindAndModify:false})
-  .then(data=>{
+  .then(data=>{ 
     res.send(data);
   })
   .catch(err=>{
@@ -622,7 +622,7 @@ router.get('/GetShopsByType', function(req, res, next) {
 router.get('/GetDeliveryLocation', function(req, res, next) {
  
   const id  =req.query.id;
-    Delivery.find({DeliveryManId:id},(err, docs) => {
+    Delivery.find({_id:id},(err, docs) => {
         if (!err) {
              res.send(docs);
         } else {
