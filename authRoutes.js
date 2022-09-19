@@ -529,8 +529,9 @@ router.put('/UpdateUserDetails',async (req,res)=>{
 
 router.get('/GetOrdersOfDeliveryBoy', function(req, res, next) {
   const id =  req.query.id;
+  const status =req.query.status;
 
-  Orders.find({DeliveryManId:id},(err, docs) => {
+  Orders.find({DeliveryManId:id,OrderStatus:status},(err, docs) => {
       if (!err) {
            res.send(docs);
       } else {
