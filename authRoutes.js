@@ -591,9 +591,9 @@ router.post('/UserOrderDelivered', function(req, res, next) {
 
 
 router.put('/UpdateUserDetails',async (req,res)=>{
-  const {email,Name,Address,Id} = req.body
+  const {PhoneNumber,Name,Address,Id} = req.body
  console.log(email,Name,Address)
-  User.findByIdAndUpdate(Id,{email:email,Name:Name,Address:Address},{useFindAndModify:false})
+  User.findByIdAndUpdate(Id,{PhoneNumber:PhoneNumber,Name:Name,Address:Address},{useFindAndModify:false})
   .then(data=>{
     res.send(data);
   })
