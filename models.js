@@ -92,6 +92,10 @@ const OrderSchema = new mongoose.Schema({
     OrderId:{
         type:String
     },
+    CouponCode:{
+        type:String,
+
+    },
 
 })
 
@@ -169,6 +173,59 @@ const UserSchema = new mongoose.Schema({
 
 
 
+
+
+
+const CouponSchema = new mongoose.Schema({
+    CouponCode:{
+        type:String,
+        required:true
+    },
+    Amount:{
+       type:String,   
+    },
+    Percentage:{
+        type:String,  
+    },
+    ShopId:{
+        type:String,
+        required:true
+    },
+
+})
+
+
+
+
+
+
+const AddAddressSchema =new mongoose.Schema({
+    Id:{
+    type:String,
+    required:true
+    },
+    VillageName:{
+        type:String,
+        required:true
+    },
+    PinCode:{
+        type:String,
+        required:true
+    },
+    DoorNo:{
+        type:String,
+        required:true
+    },
+    Landmark:{
+        type:String,
+        required:true
+    },
+    Street:{
+        type:String,
+        required:true
+    },
+
+})
 
 const SuperAdminSchema = new mongoose.Schema({
     email:{
@@ -370,5 +427,7 @@ mongoose.model('Orders',OrderSchema);
 mongoose.model('AdminUser',AdminUserSchema);
 mongoose.model('Delivery',DeliveryManLocationSchema);
 mongoose.model('SuperAdminSchema',SuperAdminSchema);
- 
- 
+mongoose.model('AddAddressSchema',AddAddressSchema);
+
+mongoose.model('CouponSchema',CouponSchema);
+

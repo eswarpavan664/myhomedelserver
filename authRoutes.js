@@ -14,15 +14,92 @@ const SuperAdmin = mongoose.model('SuperAdminSchema');
 
 
 
+const Coupon = mongoose.model('CouponSchema');
 
+const AddAddress = mongoose.model('AddAddressSchema');
 
  
 
+router.get('/CheckCouponCode', function(req, res, next) {
  
+  const id  =req.query.id;
+  const couponcode = req.query.coupon;
+   
+  Coupon.find({CouponCode:couponcode},(err, docs) => {
+        if(docs.length>0) {
+          
+              Orders.find({CouponCode:couponcode,CustomerId:id},(err, docss) => {
+                if(docss,length>0) {
+                  
+                      res.send({"Status":"error"})
+        
+                } else {
+                  res.send(docs);
+                }
+            });
+
+
+        } else {
+          res.send({"Status":"error"})
+        }
+    });
+    
+  
+});
+
+
+
+router.post('/AddCoupon',async (req,res)=>{
+   
+  const {CouponCode,Amount,Percentage,ShopId} = req.body;
+
+  try{
+    const user = new Coupon({CouponCode,Amount,Percentage,ShopId});
+    await  user.save();
+    res.send("Done");
+  }catch(err){
+    return res.status(422).send(err.message)
+  }
+  
+  
+})
 
 
 
 
+router.get('/GetUserAddresses', function(req, res, next) {
+ 
+  const id  =req.query.id;
+   
+  AddAddress.find({Id:id},(err, docs) => {
+        if(docs.length>0) {
+          res.send(docs);
+        } else {
+          res.send({"Status":"No"});
+        }
+    });
+    
+  
+});
+
+
+
+
+
+router.post('/AddUserAddresses',async (req,res)=>{
+   
+  const {Id,VillageName,PinCode,DoorNo,Landmark,Street } = req.body;
+
+  try{
+    const user = new AddAddress({Id,VillageName,PinCode,DoorNo,Landmark,Street});
+    await  user.save();
+    res.send("Done");
+  }catch(err){
+    return res.status(422).send(err.message)
+  }
+  
+  
+})
 
 
 
@@ -54,7 +131,7 @@ router.post('/UserSignuporSigin',async (req,res)=>{
     
 })
 
-
+/*
 router.get('/GetUserNewOrOld', function(req, res, next) {
  
   const id  =req.query.id;
@@ -70,7 +147,7 @@ router.get('/GetUserNewOrOld', function(req, res, next) {
   
 });
 
-
+*/
 router.post('/UserDeliveryMansignup',async (req,res)=>{
    
   const {email,password,Name,PhoneNumber,id,Latitude,Longitude,AdhurCard} = req.body;
@@ -369,10 +446,10 @@ router.get('/GetOrdersForSuperAdmin', function(req, res, next) {
 //user orders
 
 router.get('/GetUserOrders', function(req, res, next) {
-  const id ="+"+req.query.id.replaceAll('"', '');
+  const id =req.query.id.replaceAll('"', '');
 
  console.log(id.replace(/ /g,''))
-  Orders.find({ContactNo:id.replace(/ /g,'')},(err, docs) => {
+  Orders.find({emaily:id.replace(/ /g,'')},(err, docs) => {
       if (!err) {
            res.send(docs);
       } else {
