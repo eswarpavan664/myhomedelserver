@@ -144,7 +144,7 @@ const AddItemSchema = new mongoose.Schema({
 const UserSchema = new mongoose.Schema({
     email:{
         type:String,
-       
+        required:true 
     },
     Name:{
         type:String,
@@ -152,7 +152,7 @@ const UserSchema = new mongoose.Schema({
     },
     PhoneNumber:{
         type:String,
-        required:true
+        
     },
     Role:{
         type:String,
