@@ -598,7 +598,7 @@ router.put('/UpdateUserDetails',async (req,res)=>{
     res.send(data);
   })
   .catch(err=>{
-    res.send("error....!");
+     console.log("error");
   })
 })
 
