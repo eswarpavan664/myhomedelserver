@@ -398,10 +398,10 @@ router.get('/deleteItem', function (req, res) {
 
 router.post('/Orders',async (req,res)=>{
    
-  const {CustomerName,ContactNo,orderList,Amount,CustomerAddress,CurrentLocation,OrderStatus,AdminId,CustomerId,DeliveryManId,OrderOtp,OrderId,ShopName,OrderTime} = req.body;
+  const {CustomerName,ContactNo,orderList,Amount,CustomerAddress,CurrentLocation,OrderStatus,AdminId,CustomerId,DeliveryManId,OrderOtp,OrderId,ShopName,OrderTime,CouponCode} = req.body;
 
   try{
-    const user = new Orders({CustomerName,ContactNo,orderList,Amount,CustomerAddress,CurrentLocation,OrderStatus,AdminId,CustomerId,DeliveryManId,OrderOtp,OrderId,ShopName,OrderTime});
+    const user = new Orders({CustomerName,ContactNo,orderList,Amount,CustomerAddress,CurrentLocation,OrderStatus,AdminId,CustomerId,DeliveryManId,OrderOtp,OrderId,ShopName,OrderTime,CouponCode});
     await  user.save();
     res.send("done")
     
@@ -446,10 +446,10 @@ router.get('/GetOrdersForSuperAdmin', function(req, res, next) {
 //user orders
 
 router.get('/GetUserOrders', function(req, res, next) {
-  const id =req.query.id.replaceAll('"', '');
+  const id ="+"+req.query.id.replaceAll('"', '');
 
  console.log(id.replace(/ /g,''))
-  Orders.find({emaily:id.replace(/ /g,'')},(err, docs) => {
+  Orders.find({PhoneNumber:id.replace(/ /g,'')},(err, docs) => {
       if (!err) {
            res.send(docs);
       } else {
@@ -467,10 +467,10 @@ router.get('/GetUserOrders', function(req, res, next) {
 ///customer data
 
 router.get('/GetUser', function(req, res, next) {
-  const id =req.query.id.replaceAll('"', '');
-
+  const id ="+"+req.query.id.replaceAll('"', '');
+ 
  console.log(id.replace(/ /g,''))
-  User.find({email:id.replace(/ /g,'')},(err, docs) => {
+  User.find({PhoneNumber:id.replace(/ /g,'')},(err, docs) => {
       if (!err) {
            res.send(docs);
       } else {
