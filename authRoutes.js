@@ -23,27 +23,33 @@ const AddAddress = mongoose.model('AddAddressSchema');
 router.get('/CheckCouponCode', function(req, res, next) {
  
   const id  =req.query.id;
-  const couponcode = req.query.coupon;
-   
-  Coupon.find({CouponCode:couponcode},(err, docs) => {
-        if(docs.length>0) {
+  const shopid =req.query.shopid.replaceAll('"', '');
+  const couponcode = req.query.coupon.replaceAll('"', '');
+   console.log(couponcode);
+  Coupon.find({CouponCode:couponcode,ShopId:shopid},(err, docs) => {
+    
+    if(docs.length>0) {
           
-              Orders.find({CouponCode:couponcode,CustomerId:id},(err, docss) => {
-                if(docss,length>0) {
+              Orders.find({CouponCode:couponcode,CustomerId:id},(errr, docss) => {
+                
+                if(docss.length>0) {
                   
-                      res.send({"Status":"error"})
+                      res.send({"Status":"user error"})
         
                 } else {
                   res.send(docs);
                 }
+                
             });
+           
 
-
-        } else {
+        } 
+        else {
           res.send({"Status":"error"})
         }
+         
     });
-    
+    res.send(err)
   
 });
 
