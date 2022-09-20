@@ -131,7 +131,7 @@ router.post('/UserSignuporSigin',async (req,res)=>{
     
 })
 
-/*
+
 router.get('/GetUserNewOrOld', function(req, res, next) {
  
   const id  =req.query.id;
@@ -147,7 +147,7 @@ router.get('/GetUserNewOrOld', function(req, res, next) {
   
 });
 
-*/
+
 router.post('/UserDeliveryMansignup',async (req,res)=>{
    
   const {email,password,Name,PhoneNumber,id,Latitude,Longitude,AdhurCard} = req.body;
