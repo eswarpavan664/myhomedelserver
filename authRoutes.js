@@ -451,11 +451,11 @@ router.get('/GetOrdersForSuperAdmin', function(req, res, next) {
 
 //user orders
 
-router.get('/GetUserOrders', function(req, res, next) {
+router.get('/GetUserPresentOrders', function(req, res, next) {
   const id ="+"+req.query.id.replaceAll('"', '');
 
  console.log(id.replace(/ /g,''))
-  Orders.find({PhoneNumber:id.replace(/ /g,'')},(err, docs) => {
+  Orders.find({PhoneNumber:id.replace(/ /g,''),OrderStatus:"Accepted"||"AcceptedByDeliveryBoy"||"Pending"},(err, docs) => {
       if (!err) {
            res.send(docs);
       } else {
@@ -465,6 +465,23 @@ router.get('/GetUserOrders', function(req, res, next) {
   
 
 });
+
+
+router.get('/GetUserHistoryOrders', function(req, res, next) {
+  const id ="+"+req.query.id.replaceAll('"', '');
+
+ console.log(id.replace(/ /g,''))
+  Orders.find({PhoneNumber:id.replace(/ /g,''),OrderStatus:"Delivered"||"CanceledByCustomer" ||"Declain"},(err, docs) => {
+      if (!err) {
+           res.send(docs);
+      } else {
+          console.log('Failed to retrieve the Course List: ' + err);
+      }
+  });
+  
+
+});
+
 
 
 
