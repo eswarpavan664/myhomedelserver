@@ -471,7 +471,7 @@ router.get('/GetUserHistoryOrders', function(req, res, next) {
   const id ="+"+req.query.id.replaceAll('"', '');
 
  console.log(id.replace(/ /g,''))
-  Orders.find({PhoneNumber:id.replace(/ /g,''),OrderStatus:["Delivered","CanceledByCustomer","Declain"]},(err, docs) => {
+  Orders.find({ContactNo:id.replace(/ /g,''),OrderStatus:["Delivered","CanceledByCustomer","Declain"]},(err, docs) => {
       if (!err) {
            res.send(docs);
       } else {
