@@ -453,7 +453,7 @@ router.get('/GetOrdersForSuperAdmin', function(req, res, next) {
 
 router.get('/GetUserPresentOrders', function(req, res, next) {
   const id ="+"+req.query.id.replaceAll('"', '');
-  
+  console.log("hi");
  console.log(id.replace(/ /g,''))
   Orders.find({ContactNo:id.replace(/ /g,''),OrderStatus:["Accepted","Pending","AcceptedByDeliveryBoy"]},(err, docs) => {
       if (!err) {
