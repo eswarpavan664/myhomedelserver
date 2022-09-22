@@ -455,7 +455,7 @@ router.get('/GetUserPresentOrders', function(req, res, next) {
   const id ="+"+req.query.id.replaceAll('"', '');
   
  console.log(id.replace(/ /g,''))
-  Orders.find({PhoneNumber:id.replace(/ /g,''),OrderStatus:["Accepted","Pending","AcceptedByDeliveryBoy"]},(err, docs) => {
+  Orders.find({ContactNo:id.replace(/ /g,''),OrderStatus:["Accepted","Pending","AcceptedByDeliveryBoy"]},(err, docs) => {
       if (!err) {
               res.send(docs) 
       } else {
