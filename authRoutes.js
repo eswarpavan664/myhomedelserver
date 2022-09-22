@@ -478,7 +478,7 @@ router.get('/GetUserHistoryOrders', function(req, res, next) {
           console.log('Failed to retrieve the Course List: ' + err);
       }
   });
-  
+  console.log("hi")
 
 });
 
