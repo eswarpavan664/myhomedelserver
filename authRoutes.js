@@ -738,4 +738,28 @@ router.get('/GetDeliveryLocation', function(req, res, next) {
 
 
 
+ 
+
+
+
+
+
+
+
+router.post('/AddItems',async (req,res)=>{
+   
+  const {ItemName,ItemPrice,ItemDiscription,ShopName,ShopId,ItemId,AdminId,ItemType,ItemCategory,ProductImage} = req.body;
+  try{
+    const item = new Item({ItemName,ItemPrice,ProductImage,ItemDiscription,ShopName,ShopId,ItemId,AdminId,ItemType,ItemCategory});
+    await  item.save();
+   
+    res.send("Done");
+  }catch(err){
+    return res.status(422).send(err.message)
+  }
+  
+  console.log(ItemName)
+})
+
+
 module.exports = router
