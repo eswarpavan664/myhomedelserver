@@ -251,10 +251,10 @@ router.post('/UserSignin',async (req,res)=>{
 
 router.post('/AdminSignup',async (req,res)=>{
    
-  const {email,password,PhoneNumber,Name,Role,ShopName,Address,AdminId,ShopPhoto,ShopType} = req.body;
+  const {email,password,PhoneNumber,Name,Role,ShopName,Address,AdminId,ShopPhoto,ShopType,DeliveryTime,Deliverycharges} = req.body;
 
   try{
-    const user = new AdminUser({email,password,PhoneNumber,Name,Role,ShopName,Address,AdminId,ShopPhoto,ShopType});
+    const user = new AdminUser({email,password,PhoneNumber,Name,Role,ShopName,Address,AdminId,ShopPhoto,ShopType,DeliveryTime,Deliverycharges});
     await  user.save();
     const token = jwt.sign({userId:user._id},jwtkey)
     res.send({token})

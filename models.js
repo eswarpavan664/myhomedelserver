@@ -298,6 +298,12 @@ const AdminUserSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    DeliveryTime:{
+        type:String,
+    },
+    Deliverycharges:{
+        type:String
+    },
 
 })
 
