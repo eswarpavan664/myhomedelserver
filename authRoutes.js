@@ -560,17 +560,21 @@ router.put('/OrderCancel',async (req,res)=>{
 
 router.post('/OrderDelivered', function(req, res, next) {
   const {otp,id} = req.body
+  console.log(typeof(otp),id);
   Orders.find({OrderOtp:otp,_id:id},(err, docs) => {
+    console.log(docs);
       if (docs.length>0) {
             Orders.findByIdAndUpdate(id,{ OrderStatus:"Delivered"},{useFindAndModify:false})
             .then(data=>{
-              res.send(data)
+              res.send({"status":"Done"})
+             console.log(data);
             })
             .catch(err=>{
-              //
+              //s
             })
       } else {
-        res.send({"status":"Order not Done"});
+        res.send({"status":"Not Done"});
+        console.log("not done")
       }
   });
 });
