@@ -400,6 +400,24 @@ router.get('/deleteItem', function (req, res) {
 });
 
 
+
+
+// delete admins
+
+router.get('/deleteAdmins', function (req, res) {
+  var id = req.query.id;
+  
+ 
+  AdminUser.deleteOne({ _id:id}, function (err, results) {
+    if(!err){
+      console.log("Deleted successfully");
+    }
+  });
+
+  res.json({ success: id })
+});
+
+
 //place order
 
 router.post('/Orders',async (req,res)=>{
