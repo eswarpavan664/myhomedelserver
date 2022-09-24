@@ -418,6 +418,23 @@ router.get('/deleteAdmins', function (req, res) {
 });
 
 
+// delete customer
+
+
+router.get('/deleteCustomer', function (req, res) {
+  var id = req.query.id;
+  
+ 
+  User.deleteOne({ _id:id}, function (err, results) {
+    if(!err){
+      console.log("Deleted successfully");
+    }
+  });
+
+  res.json({ success: id })
+});
+
+
 //place order
 
 router.post('/Orders',async (req,res)=>{
