@@ -352,7 +352,7 @@ router.get('/GetItems', function(req, res, next) {
     });
   }
   else{
-    Item.find({ShopId:id,ItemName:itemname},(err, docs) => {
+    Item.find({ShopId:id,ItemType:itemname},(err, docs) => {
       if (!err) {
            res.send(docs);
       } else {

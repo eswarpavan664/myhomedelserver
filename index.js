@@ -171,13 +171,13 @@ app.get('/send-text', (req, res) => {
     res.send('From Food Mart')
 
     //_GET Variables
-    const { recipient, textmessage } = req.query;
+    const { textmessage } = req.query;
 
 
     //Send Text
     client.messages.create({
         body: textmessage,
-        to:"+91"+recipient,  // Text this number
+        to:"+917993031882",  // Text this number
         from: '+19125203533' // From a valid Twilio number
     }).then((message) => console.log(message.body));
 })
