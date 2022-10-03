@@ -342,7 +342,8 @@ router.get('/GetRestorents', function(req, res, next) {
 router.get('/GetItems', function(req, res, next) {
   const id=  req.query.id;
   const itemname = req.query.itemname;
-  if(itemname==="All" ||itemname===""){
+  const veg = req.query.veg;
+  if(itemname==="All"  ||itemname==="" ){
     Item.find({ShopId:id},(err, docs) => {
       if (!err) {
            res.send(docs);
@@ -456,7 +457,7 @@ router.post('/Orders',async (req,res)=>{
 
 router.get('/GetOrders', function(req, res, next) {
   const id =  req.query.id;
-  Orders.find({AdminId:id},(err, docs) => {
+  Orders.find({AdminId:id,OrderStatus:DisplayType},(err, docs) => {
       if (!err) {
            res.send(docs);
       } else {
@@ -469,8 +470,9 @@ router.get('/GetOrders', function(req, res, next) {
 
 
 router.get('/GetOrdersForSuperAdmin', function(req, res, next) {
-  
-  Orders.find((err, docs) => {
+  const id = req.query.id;
+  console.log(id);
+  Orders.find({OrderStatus:id},(err, docs) => {
       if (!err) {
            res.send(docs);
       } else {
@@ -734,13 +736,25 @@ console.log(id)
 router.get('/GetItemByVegOrNonVeg', function(req, res, next) {
  
   const id  =req.query.id;
-    Item.find({ItemCategory:id},(err, docs) => {
+    if(id=="All"){
+      Item.find((err, docs) => {
         if (!err) {
              res.send(docs);
         } else {
             console.log('Failed to retrieve the Course List: ' + err);
         }
     });
+
+    }
+    else{
+      Item.find({ItemCategory:id},(err, docs) => {
+        if (!err) {
+             res.send(docs);
+        } else {
+            console.log('Failed to retrieve the Course List: ' + err);
+        }
+    });
+    }
     
   
   });
