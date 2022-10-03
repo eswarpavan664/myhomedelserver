@@ -457,7 +457,8 @@ router.post('/Orders',async (req,res)=>{
 
 router.get('/GetOrders', function(req, res, next) {
   const id =  req.query.id;
-  Orders.find({AdminId:id,OrderStatus:type},(err, docs) => {
+  const Type =  req.query.Type;
+  Orders.find({AdminId:id,OrderStatus:Type},(err, docs) => {
       if (!err) {
            res.send(docs);
       } else {
