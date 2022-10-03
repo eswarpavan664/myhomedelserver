@@ -111,6 +111,10 @@ const AddItemSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    DiscountPrice:{
+    type:String,
+    required:true
+    },
     ProductImage:{
         type:String,
         required:true
