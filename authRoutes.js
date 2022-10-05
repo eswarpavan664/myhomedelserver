@@ -25,7 +25,7 @@ router.get('/CheckCouponCode', function(req, res, next) {
   const id  =req.query.id;
   const shopid =req.query.shopid.replaceAll('"', '');
   const couponcode = req.query.coupon.replaceAll('"', '');
-   console.log(couponcode);
+   
   Coupon.find({CouponCode:couponcode,ShopId:shopid},(err, docs) => {
     
     if(docs.length>0) {
@@ -472,7 +472,7 @@ router.get('/GetOrders', function(req, res, next) {
 
 router.get('/GetOrdersForSuperAdmin', function(req, res, next) {
   const id = req.query.id;
-  console.log(id);
+   
   Orders.find({OrderStatus:id},(err, docs) => {
       if (!err) {
            res.send(docs);
@@ -491,8 +491,8 @@ router.get('/GetOrdersForSuperAdmin', function(req, res, next) {
 
 router.get('/GetUserPresentOrders', function(req, res, next) {
   const id ="+"+req.query.id.replaceAll('"', '');
-  console.log("hi");
- console.log(id.replace(/ /g,''))
+   
+ //console.log(id.replace(/ /g,''))
   Orders.find({ContactNo:id.replace(/ /g,''),OrderStatus:["Accepted","Pending","AcceptedByDeliveryBoy"]},(err, docs) => {
       if (!err) {
               res.send(docs) 
@@ -508,7 +508,7 @@ router.get('/GetUserPresentOrders', function(req, res, next) {
 router.get('/GetUserHistoryOrders', function(req, res, next) {
   const id ="+"+req.query.id.replaceAll('"', '');
 
- console.log(id.replace(/ /g,''))
+ //console.log(id.replace(/ /g,''))
   Orders.find({ContactNo:id.replace(/ /g,''),OrderStatus:["Delivered","CanceledByCustomer","Declain"]},(err, docs) => {
       if (!err) {
            res.send(docs);
@@ -516,7 +516,7 @@ router.get('/GetUserHistoryOrders', function(req, res, next) {
           console.log('Failed to retrieve the Course List: ' + err);
       }
   });
-  console.log("hi")
+  //console.log("hi")
 
 });
 
@@ -530,7 +530,7 @@ router.get('/GetUserHistoryOrders', function(req, res, next) {
 router.get('/GetUser', function(req, res, next) {
   const id ="+"+req.query.id.replaceAll('"', '');
  
- console.log(id.replace(/ /g,''))
+ //console.log(id.replace(/ /g,''))
   User.find({PhoneNumber:id.replace(/ /g,'')},(err, docs) => {
       if (!err) {
            res.send(docs);
@@ -598,9 +598,9 @@ router.put('/OrderCancel',async (req,res)=>{
 
 router.post('/OrderDelivered', function(req, res, next) {
   const {otp,id} = req.body
-  console.log(typeof(otp),id);
+ // console.log(typeof(otp),id);
   Orders.find({OrderOtp:otp,_id:id},(err, docs) => {
-    console.log(docs);
+    //console.log(docs);
       if (docs.length>0) {
             Orders.findByIdAndUpdate(id,{ OrderStatus:"Delivered"},{useFindAndModify:false})
             .then(data=>{
@@ -669,6 +669,21 @@ router.put('/UpdateUserDetails',async (req,res)=>{
 
 
 
+router.put('/UpdateAdminDetails',async (req,res)=>{
+  const {PhoneNumber,Name,ShopName,Address,ShopPhoto,DeliveryTime,Deliverycharges,Id} = req.body
+  
+  AdminUser.findByIdAndUpdate(Id,{PhoneNumber:PhoneNumber,Name:Name,ShopName:ShopName,Address:Address,ShopPhoto:ShopPhoto,DeliveryTime:DeliveryTime,Deliverycharges:Deliverycharges},{useFindAndModify:false})
+  .then(data=>{
+    res.send(data);
+  })
+  .catch(err=>{
+     console.log("error");
+  })
+})
+
+
+
+
 router.get('/GetOrdersOfDeliveryBoy', function(req, res, next) {
   const id =  req.query.id.replaceAll('"', '');
   const status =  req.query.status.replaceAll('"', '');
@@ -680,7 +695,7 @@ router.get('/GetOrdersOfDeliveryBoy', function(req, res, next) {
           console.log('Failed to retrieve the Course List: ' + err);
       }
   });
-  console.log(id,status);
+  
   
 
 });
@@ -721,7 +736,7 @@ router.get('/GetUsers', function(req, res, next) {
 router.get('/GetItemsByCat', function(req, res, next) {
  
 const id  =req.query.id;
-console.log(id)
+ 
   Item.find({ItemType:"Starters"},(err, docs) => {
       if (docs.length>0) {
            res.send(docs);
@@ -812,8 +827,90 @@ router.post('/AddItems',async (req,res)=>{
     return res.status(422).send(err.message)
   }
   
-  console.log(ItemName)
+   
 })
 
+
+
+router.get('/GetAdminForRes', function(req, res, next) {
+ 
+  const id  =req.query.id;
+    AdminUser.find({AdminId:id},(err, docs) => {
+        if (!err) {
+             res.send(docs);
+        } else {
+            console.log('Failed to retrieve the Course List: ' + err);
+        }
+    });
+    
+  
+});
+
+
+
+router.get('/FindOrderForSuperAdminByOrderId', function(req, res, next) {
+ 
+  const id  =req.query.id;
+  const k = req.query.orderid.replaceAll('"', '');
+   
+   if(k==="All" || k===""){
+
+          Orders.find({OrderStatus:id},(err, docs) => {
+            if (!err) {
+                res.send(docs);
+            } else {
+                console.log('Failed to retrieve the Course List: ' + err);
+            }
+        });
+        
+  
+
+   }
+   else{
+          Orders.find({OrderStatus:id,OrderId:k},(err, docs) => {
+            if (!err) {
+              res.send(docs);
+          } else {
+              console.log('Failed to retrieve the Course List: ' + err);
+          }
+        });
+  
+   }
+  
+});
+
+
+
+router.get('/FindOrderForAdminByOrderId', function(req, res, next) {
+ 
+  const id  =req.query.id;
+  const k = req.query.orderid.replaceAll('"', '');
+  const adminid =req.query.Adminid;
+   
+   if(k==="All" || k===""){
+
+          Orders.find({OrderStatus:id,AdminId:adminid},(err, docs) => {
+            if (!err) {
+                res.send(docs);
+            } else {
+                console.log('Failed to retrieve the Course List: ' + err);
+            }
+        });
+        
+  
+
+   }
+   else{
+          Orders.find({OrderStatus:id,OrderId:k,AdminId:adminid},(err, docs) => {
+            if (!err) {
+              res.send(docs);
+          } else {
+              console.log('Failed to retrieve the Course List: ' + err);
+          }
+        });
+  
+   }
+  
+});
 
 module.exports = router

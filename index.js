@@ -1,5 +1,5 @@
 const express = require('express');
- 
+const fast2sms = require('fast-two-sms')
 const app = express();
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser');
@@ -140,7 +140,9 @@ app.get('/GetAdmin',requireTokenAdmin,(req,res)=>{
         ShopPhoto:req.user.ShopPhoto,
         AdminId:req.user.AdminId,
         ShopType:req.user.ShopType,
-        
+        Deliverycharges:req.user.Deliverycharges,
+        _id:req.user._id,
+        DeliveryTime:req.user.DeliveryTime
     })
 
     
@@ -182,6 +184,58 @@ app.get('/send-text', (req, res) => {
     }).then((message) => console.log(message.body));
 })
  
+/*
+
+const options = {
+    url: 'https://api.enablex.io/sms/v1/messages/',
+    json: true,
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Basic NjMzYzNhNzcwMjhiODUwZWQ2NGRiMDA0OmF1amFaeTl1Z2U5ZVp5RHVIdURhSnVMZXVlWnltYW11dnl5ZQ==',
+    },
+    body: {
+        body: "This is a test SMS from EnableX, Asia's fastest growing, full-stack, omni-channel CPaaS platform. This SMS was sent only for testing purposes.",
+        type: "sms",
+        data_coding: "auto",
+        campaign_id: "45645229", 
+        to: ["+917993031882"],
+        from: "ENABLX",
+        template_id: "901"        
+    }
+};   
+
+app.post( "/testsms", (err, res, body,options) => {
+    if (err) {
+        return console.log(err);
+    }
+    console.log(`Status: ${res.statusCode}`);
+    console.log(body);
+});
+*/
+/*
+app.post('/textbelt.com/text', {
+  form: {
+    phone: '+917993031882',
+    message: 'Hello world',
+    key: 'bd12d70ed231771b030e39767c2dc64e898a8604GvAIYrtMRJnKpS5r3d95LQ6oH',
+  },
+}, (err, httpResponse, body) => {
+  console.log(JSON.parse(body));
+});
+*/
+
+app.get('/sendOrderAsSms',async (req,res)=>{
+    const orderid = req.query.OrderId ;
+    const customername = req.query.CustomerName ;
+    const phonenumber = req.query.PhoneNumber ;
+   var options = {authorization :'w1kvUyI2XKeQLoNzOqr9TAJgihZ4tRfMFpnx7dlbBjHCuYG6aPh0jLoXTaZyRtEpwIbQzrKdH8xMP2cl' , message : 'Order from Customer:- '+customername+'\t Mobile No:-'+phonenumber+' with Order Id:-'+orderid ,  numbers : ['7993031882' ]} 
+    const response = await fast2sms.sendMessage(options)
+ 
+     res.send(response)
+     console.log(orderid,customername,phonenumber);
+
+})
+
 
 app.listen(process.env.PORT || 5000,()=>{
     console.log("server is runnung on port 5000");
