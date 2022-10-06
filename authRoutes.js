@@ -834,7 +834,7 @@ router.post('/AddItems',async (req,res)=>{
 
 router.get('/GetAdminForRes', function(req, res, next) {
  
-  const id  =req.query.id;
+  const id  =req.query.id.replaceAll('"', '');
     AdminUser.find({AdminId:id},(err, docs) => {
         if (!err) {
              res.send(docs);
@@ -842,7 +842,7 @@ router.get('/GetAdminForRes', function(req, res, next) {
             console.log('Failed to retrieve the Course List: ' + err);
         }
     });
-    
+    console.log(id);
   
 });
 
