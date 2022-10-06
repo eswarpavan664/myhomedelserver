@@ -233,6 +233,7 @@ app.get('/sendOrderAsSms',async (req,res)=>{
  
      res.send(response)
      console.log(orderid,customername,phonenumber);
+     console.log("hii")
 
 })
 
