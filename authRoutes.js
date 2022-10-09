@@ -110,32 +110,83 @@ router.post('/AddUserAddresses',async (req,res)=>{
 
 
 
-
-
- 
-router.post('/UserSignuporSigin',async (req,res)=>{
+router.post('/UserSignup',async (req,res)=>{
    
-  const {PhoneNumber,email,Name,Role,Address,Id } = req.body;
-  let user=false
-    try{
-
-      User.find({Id:Id},(err, docs)  => {
-        if (docs.length>0) {
-             res.send(docs);
-        } else {
-          const user = new User({PhoneNumber,email,Name,Role,Address,Id });
-           user.save();
-        }
-    });
+  const {PhoneNumber,email,Name,Role,Address,Id,Password } = req.body;
+  const user = await User.findOne({PhoneNumber})
   
-     // const token = jwt.sign({userId:user._id},jwtkey)
-    //  res.send({token})
+  if(user){
+    res.send({"Status":"Already"})
+  }
+  else{
 
-    }catch(err){
-      return res.status(422).send(err.message)
-    }
+       
+          const user = new User({PhoneNumber,email,Name,Role,Address,Id,Password });
+          user.save();
+          res.send({"Status":"Yes"});
+         
+
+  }
+     
+ 
+     
     
 })
+
+ 
+router.post('/UserSigin',async (req,res)=>{
+   
+  const {PhonNumber,Password} = req.body
+  if(!PhonNumber || !Password){
+       res.send({"Status":"Wrong"})
+  }
+  const user = await User.findOne({PhonNumber})
+
+  if(!user){
+       res.send({"Status":"NO"})
+  }
+  else{
+      User.find({PhoneNumber:PhonNumber,Password:Password},(err, docs) => {
+        if (docs.length>0) {
+            res.send(docs);
+           
+        } else {
+          res.send({"Status":"NO"})
+        }
+      });
+  }
+
+    
+})
+
+
+router.post('/UserSiginWithOTP',async (req,res)=>{
+   
+  const {PhonNumber} = req.body
+  if(!PhonNumber){
+       res.send({"Status":"Wrong"})
+  }
+  const user = await User.findOne({PhonNumber})
+
+  if(!user){
+       res.send({"Status":"NO"})
+  }
+  else{
+      User.find({PhoneNumber:PhonNumber},(err, docs) => {
+        if (docs.length>0) {
+            res.send(docs);
+           
+        } else {
+          res.send({"Status":"NO"})
+        }
+      });
+  }
+})
+
+
+
+
+
 
 
 router.get('/GetUserNewOrOld', function(req, res, next) {
