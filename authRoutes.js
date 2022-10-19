@@ -394,7 +394,8 @@ router.get('/GetItems', function(req, res, next) {
   const id=  req.query.id;
   const itemname = req.query.itemname;
   const veg = req.query.veg;
-  if(itemname==="All"  ||itemname==="" ){
+  
+  if(itemname==="All" && veg==="All" ||itemname==="" && veg==="All"  ){
     Item.find({ShopId:id},(err, docs) => {
       if (!err) {
            res.send(docs);
@@ -403,7 +404,16 @@ router.get('/GetItems', function(req, res, next) {
       }
     });
   }
-  else{
+  else if(itemname==="All" && veg!=="All"){
+    Item.find({ShopId:id,ItemCategory:veg},(err, docs) => {
+      if (!err) {
+           res.send(docs);
+      } else {
+          console.log('Failed to retrieve the Course List: ' + err);
+      }
+    });
+  }
+  else if(itemname!=="All" && veg==="All"){
     Item.find({ShopId:id,ItemType:itemname},(err, docs) => {
       if (!err) {
            res.send(docs);
@@ -412,7 +422,16 @@ router.get('/GetItems', function(req, res, next) {
       }
     });
   }
-  
+  else{
+    Item.find({ShopId:id,ItemType:itemname,ItemCategory:veg},(err, docs) => {
+      if (!err) {
+           res.send(docs);
+      } else {
+          console.log('Failed to retrieve the Course List: ' + err);
+      }
+    });
+  }
+  console.log(veg)
 
 });
 
@@ -893,7 +912,7 @@ router.get('/GetAdminForRes', function(req, res, next) {
             console.log('Failed to retrieve the Course List: ' + err);
         }
     });
-    console.log(id);
+  // console.log(id);
   
 });
 
