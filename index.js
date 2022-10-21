@@ -142,7 +142,8 @@ app.get('/GetAdmin',requireTokenAdmin,(req,res)=>{
         ShopType:req.user.ShopType,
         Deliverycharges:req.user.Deliverycharges,
         _id:req.user._id,
-        DeliveryTime:req.user.DeliveryTime
+        DeliveryTime:req.user.DeliveryTime,
+        ShopStatus:req.user.ShopStatus
     })
 
     

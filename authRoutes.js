@@ -272,7 +272,23 @@ router.put('/LocationUpdate',async (req,res)=>{
     res.send("error....!");
   })
 })
+
+
+
+//update shop availability
+
+router.put('/OpenOrCloseShop',async (req,res)=>{
+  const {status,Id} = req.body
  
+  AdminUser.findByIdAndUpdate(Id,{ShopStatus:status},{useFindAndModify:false})
+  .then(data=>{
+    res.send(data);
+  })
+  .catch(err=>{
+    res.send("error....!");
+  })
+})
+
 
 
 
@@ -302,10 +318,10 @@ router.post('/UserSignin',async (req,res)=>{
 
 router.post('/AdminSignup',async (req,res)=>{
    
-  const {email,password,PhoneNumber,Name,Role,ShopName,Address,AdminId,ShopPhoto,ShopType,DeliveryTime,Deliverycharges} = req.body;
+  const {email,password,PhoneNumber,Name,Role,ShopName,Address,AdminId,ShopPhoto,ShopType,DeliveryTime,Deliverycharges,ShopStatus} = req.body;
 
   try{
-    const user = new AdminUser({email,password,PhoneNumber,Name,Role,ShopName,Address,AdminId,ShopPhoto,ShopType,DeliveryTime,Deliverycharges});
+    const user = new AdminUser({email,password,PhoneNumber,Name,Role,ShopName,Address,AdminId,ShopPhoto,ShopType,DeliveryTime,Deliverycharges,ShopStatus});
     await  user.save();
     const token = jwt.sign({userId:user._id},jwtkey)
     res.send({token})
@@ -316,6 +332,7 @@ router.post('/AdminSignup',async (req,res)=>{
   
   
 })
+
 
 
 //Admin siginup
@@ -436,6 +453,24 @@ router.get('/GetItems', function(req, res, next) {
 });
 
 
+//All items
+
+
+router.get('/GetAllItems', function(req, res, next) {
+ 
+ 
+   
+  Item.find((err, docs) => {
+      if (docs.length>0) {
+           res.send(docs);
+      } else {
+        res.send("done")
+          console.log('Failed to retrieve the Course List: ' + err);
+      }
+  });
+  
+
+});
 
 //get items to admin panel
 router.get('/GetAdminItem', function(req, res, next) {

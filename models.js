@@ -259,6 +259,10 @@ const SuperAdminSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    ShopStatus:{
+        type:String,
+        required:true
+    },
 })
 
 
@@ -311,6 +315,10 @@ const AdminUserSchema = new mongoose.Schema({
     },
     Deliverycharges:{
         type:String
+    },
+    ShopStatus:{
+        type:String,
+        required:true
     },
 
 })
