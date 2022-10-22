@@ -922,9 +922,9 @@ router.get('/GetDeliveryLocation', function(req, res, next) {
 
 router.post('/AddItems',async (req,res)=>{
    
-  const {ItemName,ItemPrice,ItemDiscription,ShopName,ShopId,ItemId,AdminId,ItemType,ItemCategory,ProductImage,DiscountPrice} = req.body;
+  const {ItemName,ItemPrice,ItemDiscription,ShopName,ShopId,ItemId,AdminId,ItemType,ItemCategory,ProductImage,DiscountPrice,ItemStatus} = req.body;
   try{
-    const item = new Item({ItemName,ItemPrice,ProductImage,ItemDiscription,ShopName,ShopId,ItemId,AdminId,ItemType,ItemCategory,DiscountPrice});
+    const item = new Item({ItemName,ItemPrice,ProductImage,ItemDiscription,ShopName,ShopId,ItemId,AdminId,ItemType,ItemCategory,DiscountPrice,ItemStatus});
     await  item.save();
    
     res.send("Done");

@@ -147,6 +147,10 @@ const AddItemSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    ItemStatus:{
+        type:String,
+        required:true
+    },
 })
 
 const UserSchema = new mongoose.Schema({
