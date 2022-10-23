@@ -61,8 +61,10 @@ router.post('/AddCoupon',async (req,res)=>{
 
   try{
     const user = new Coupon({CouponCode,Amount,Percentage,ShopId});
+
     await  user.save();
     res.send("Done");
+    
   }catch(err){
     return res.status(422).send(err.message)
   }
@@ -292,6 +294,19 @@ router.put('/OpenOrCloseShop',async (req,res)=>{
 
 
 
+router.put('/UpdateItemStatus',async (req,res)=>{
+  const {status,Id} = req.body
+ 
+  Item.findByIdAndUpdate(Id,{ItemStatus:status},{useFindAndModify:false})
+  .then(data=>{
+    res.send(data);
+  })
+  .catch(err=>{
+    res.send("error....!");
+  })
+})
+
+
 router.post('/UserSignin',async (req,res)=>{
     const {email,password} = req.body
     if(!email || !password){
@@ -318,10 +333,10 @@ router.post('/UserSignin',async (req,res)=>{
 
 router.post('/AdminSignup',async (req,res)=>{
    
-  const {email,password,PhoneNumber,Name,Role,ShopName,Address,AdminId,ShopPhoto,ShopType,DeliveryTime,Deliverycharges,ShopStatus} = req.body;
+  const {email,password,PhoneNumber,Name,Role,ShopName,Address,AdminId,ShopPhoto,ShopType,DeliveryTime,Deliverycharges,ShopStatus,MainItems} = req.body;
 
   try{
-    const user = new AdminUser({email,password,PhoneNumber,Name,Role,ShopName,Address,AdminId,ShopPhoto,ShopType,DeliveryTime,Deliverycharges,ShopStatus});
+    const user = new AdminUser({email,password,PhoneNumber,Name,Role,ShopName,Address,AdminId,ShopPhoto,ShopType,DeliveryTime,Deliverycharges,ShopStatus,MainItems});
     await  user.save();
     const token = jwt.sign({userId:user._id},jwtkey)
     res.send({token})
@@ -367,10 +382,10 @@ router.post('/AdminSignin',async (req,res)=>{
 
 router.post('/AddItem',async (req,res)=>{
    
-  const {ItemName,ItemPrice,ProductImage,ItemDiscription,ShopName,ShopId,AdminId,ItemType,ItemCategory} = req.body;
+  const {ItemName,ItemPrice,ProductImage,ItemDiscription,ShopName,ShopId,AdminId,ItemType,ItemCategory,ItemStatus,ItemHalfPrice} = req.body;
 
   try{
-    const user = new User({ItemName,ItemPrice,ProductImage,ItemDiscription,ShopName,ShopId,AdminId,ItemType,ItemCategory});
+    const user = new User({ItemName,ItemPrice,ProductImage,ItemDiscription,ShopName,ShopId,AdminId,ItemType,ItemCategory,ItemStatus,ItemHalfPrice});
     await  Item.save();
     
   }catch(err){

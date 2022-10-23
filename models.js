@@ -151,6 +151,13 @@ const AddItemSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    ItemStatus:{
+        type:String,
+        required:true
+    },
+    ItemHalfPrice:{
+        type:String
+    },
 })
 
 const UserSchema = new mongoose.Schema({
@@ -319,6 +326,10 @@ const AdminUserSchema = new mongoose.Schema({
     },
     Deliverycharges:{
         type:String
+    },
+    MainItems:{
+        type:String,
+        required:true
     },
     ShopStatus:{
         type:String,
