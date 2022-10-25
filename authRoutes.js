@@ -13,7 +13,7 @@ const Item = mongoose.model('Items');
 const SuperAdmin = mongoose.model('SuperAdminSchema');
 
 
-
+const CharesByArea = mongoose.model('CharesByAreaSchema');
 const Coupon = mongoose.model('CouponSchema');
 
 const AddAddress = mongoose.model('AddAddressSchema');
@@ -54,6 +54,7 @@ router.get('/CheckCouponCode', function(req, res, next) {
 });
 
 
+// Add Coupon
 
 router.post('/AddCoupon',async (req,res)=>{
    
@@ -65,7 +66,7 @@ router.post('/AddCoupon',async (req,res)=>{
     await  user.save();
     res.send("Done");
     
-  }catch(err){
+  }catch(err){Charges
     return res.status(422).send(err.message)
   }
   
@@ -73,7 +74,48 @@ router.post('/AddCoupon',async (req,res)=>{
 })
 
 
+// Area and Charges
 
+router.post('/AddAreaCharges',async (req,res)=>{
+   
+  const {AreaName,Price} = req.body;
+  const area = await CharesByArea.findOne({AreaName})
+  
+  if(area){
+    res.send({"Status":"Already Existed"})
+  }
+  else{
+    const user = new CharesByArea({AreaName,Price});
+
+    await  user.save();
+    res.send({"Status":"Done"});
+  }
+  
+  
+})
+
+
+
+// Get Area Charges
+
+router.get('/GetAreaCharges', function(req, res, next) {
+ 
+  const id  =req.query.id;
+   
+  CharesByArea.find({AreaName:id},(err, docs) => {
+        if(docs.length>0) {
+          res.send(docs);
+        } else {
+          res.send({"Status":"No"});
+        }
+    });
+    
+  
+});
+
+
+
+// Get User Address
 
 router.get('/GetUserAddresses', function(req, res, next) {
  

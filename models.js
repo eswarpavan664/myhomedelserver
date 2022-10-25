@@ -160,6 +160,20 @@ const AddItemSchema = new mongoose.Schema({
     },
 })
 
+
+
+const CharesByAreaSchema = new mongoose.Schema({
+    AreaName:{
+        type:String,
+        required:true 
+    },
+    Price:{
+        type:String,
+        required:true 
+    },
+
+})
+
 const UserSchema = new mongoose.Schema({
     email:{
         type:String,
@@ -468,3 +482,5 @@ mongoose.model('AddAddressSchema',AddAddressSchema);
 
 mongoose.model('CouponSchema',CouponSchema);
 
+mongoose.model('CouponSchema',CouponSchema);
+mongoose.model('CharesByAreaSchema',CharesByAreaSchema);
