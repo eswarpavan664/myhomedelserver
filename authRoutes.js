@@ -96,6 +96,23 @@ router.post('/AddAreaCharges',async (req,res)=>{
 
 
 
+// Get all Charges
+
+router.get('/GetAllCharges', function(req, res, next) {
+ 
+ 
+   
+  CharesByArea.find((err, docs) => {
+        if(docs.length>0) {
+          res.send(docs);
+        } else {
+          res.send({"Status":"No"});
+        }
+    });
+    
+  
+});
+
 // Get Area Charges
 
 router.get('/GetAreaCharges', function(req, res, next) {
