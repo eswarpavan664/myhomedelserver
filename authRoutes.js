@@ -763,7 +763,7 @@ router.put('/UpdateDeliveryOrderStatus',async (req,res)=>{
 
 
 
-router.put('/UpdateDeliveryOrderStatus',async (req,res)=>{
+router.put('/UpdateCharges',async (req,res)=>{
   const {AreaName,Id,Price } = req.body
  
   CharesByArea.findByIdAndUpdate(Id,{AreaName:AreaName,Price:Price},{useFindAndModify:false})
