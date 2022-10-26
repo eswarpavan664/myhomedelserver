@@ -169,6 +169,11 @@ app.get('/GetDeliveryMan',requireDeliveryToken,(req,res)=>{
 })
 
 
+
+app.use((req, res, next) => {
+    res.header({"Access-Control-Allow-Origin": "*"});
+    next();
+  }) 
 //Twilio 
 app.get('/send-text', (req, res) => {
     //Welcome Message
