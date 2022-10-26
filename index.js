@@ -19,7 +19,8 @@ const authToken = '4c4d95fa01eb63649db7e3aea00f8323';
 const client = new twilio(accountSid, authToken);
 
 const multer = require("multer");
- 
+const FCM =require('fcm-node');
+const Servicekey ='AAAAuXQ682g:APA91bFUnxuthqY-nTMFAEHoKBTo5hZ89Ld9k2RLyIEPt7WEMc4xAYr9NLIk_gYq69DFlL99zXwxbH9a4Php8LU2Lgj-NLM7Dj3IJEiuXRWlS-vnWIzgG3o5OQj-fRrSspAXmUtkhkQM'; 
 
 const authRoutes = require('./authRoutes');
 const { validateRequest } = require('twilio/lib/webhooks/webhooks');
@@ -238,6 +239,36 @@ app.get('/sendOrderAsSms',async (req,res)=>{
 
 })
 
+
+/*
+app.post('/SendNotification',async(req,res,next)=>{
+    try{
+
+        let fcm =new FCM(Servicekey);
+        let keyy='BF4iYV_xnrUfuEzqYFmMwWlPGu0OOBkXqPGzbEA_liAucUOwrCL3H8XUsX7CwPnkVNkz3nkl4qY10SEqADkgiF0'
+        let message={
+            to:keyy+'/'+req.body.topics,
+            notification:{
+                title:req.body.title,
+                body:req.body.body,
+                sound:'default',
+                "icon":"fcm_push_icon"
+            },
+            data:req.body.data
+        }
+        fcm.send(message,(err,response)=>{
+            if(err){
+                next(err);
+            }
+            else{
+                    res.json(response);
+            }
+        })
+    }catch(error){
+            next(error)
+    }
+})
+*/
 
 app.listen(process.env.PORT || 5000,()=>{
     console.log("server is runnung on port 5000");
