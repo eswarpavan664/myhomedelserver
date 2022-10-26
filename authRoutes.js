@@ -579,6 +579,20 @@ router.get('/deleteItem', function (req, res) {
   res.json({ success: id })
 });
 
+// delete Charges
+
+router.get('/deleteCharges', function (req, res) {
+  var id = req.query.id;
+  
+ 
+  CharesByArea.deleteOne({ _id:id}, function (err, results) {
+    if(!err){
+      console.log("Deleted successfully");
+    }
+  });
+
+  res.json({ success: id })
+});
 
 
 
