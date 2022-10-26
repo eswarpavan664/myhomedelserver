@@ -756,6 +756,26 @@ router.put('/UpdateDeliveryOrderStatus',async (req,res)=>{
 })
 
 
+
+
+// update charges
+
+
+
+
+router.put('/UpdateDeliveryOrderStatus',async (req,res)=>{
+  const {AreaName,Id,Price } = req.body
+ 
+  CharesByArea.findByIdAndUpdate(Id,{AreaName:AreaName,Price:Price},{useFindAndModify:false})
+  .then(data=>{
+    res.send(data)
+  })
+  .catch(err=>{
+    res.send("error....!");
+  })
+})
+
+
 ///////////////
 
 
