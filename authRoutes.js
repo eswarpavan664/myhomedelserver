@@ -187,6 +187,7 @@ router.post('/UserSignup',async (req,res)=>{
           res.send({"Status":"Yes"});
          console.log("done");
 
+
   }
      
  
@@ -357,6 +358,21 @@ router.put('/UpdateItemStatus',async (req,res)=>{
   const {status,Id} = req.body
  
   Item.findByIdAndUpdate(Id,{ItemStatus:status},{useFindAndModify:false})
+  .then(data=>{
+    res.send(data);
+  })
+  .catch(err=>{
+    res.send("error....!");
+  })
+})
+
+
+// update item details
+
+router.put('/UpdateItemDetails',async (req,res)=>{
+  const {ItemName,ItemPrice,DiscountPrice,Id} = req.body
+ 
+  Item.findByIdAndUpdate(Id,{ItemName:ItemName,ItemPrice:ItemPrice,DiscountPrice:DiscountPrice},{useFindAndModify:false})
   .then(data=>{
     res.send(data);
   })
