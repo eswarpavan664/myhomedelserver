@@ -170,10 +170,7 @@ app.get('/GetDeliveryMan',requireDeliveryToken,(req,res)=>{
 
 
 
-app.use((req, res, next) => {
-    res.header({"Access-Control-Allow-Origin": "*"});
-    next();
-  }) 
+app.use((req, res, next) => { res.header({"Access-Control-Allow-Origin": "*"}); next(); })
 //Twilio 
 app.get('/send-text', (req, res) => {
     //Welcome Message
@@ -182,7 +179,7 @@ app.get('/send-text', (req, res) => {
     //_GET Variables
     const { textmessage } = req.query;
 
-
+console.log("done");
     //Send Text
     client.messages.create({
         body: textmessage,
