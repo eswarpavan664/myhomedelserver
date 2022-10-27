@@ -277,4 +277,5 @@ app.post('/SendNotification',async(req,res,next)=>{
 
 app.listen(process.env.PORT || 5000,()=>{
     console.log("server is runnung on port 5000");
+    console.log("done");
 })
