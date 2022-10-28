@@ -146,7 +146,7 @@ router.get('/GetUserAddresses', function(req, res, next) {
         }
     });
     
-  
+  console.log("done")
 });
 
 
