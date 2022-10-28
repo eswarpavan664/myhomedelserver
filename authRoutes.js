@@ -225,7 +225,7 @@ router.post('/UserSigin',async (req,res)=>{
 router.post('/UserSiginWithOTP',async (req,res)=>{
    
   const {PhonNumber} = req.body
-  if(!PhonNumber){
+  if(PhonNumber===""){
        res.send({"Status":"Wrong"})
   }
   const user = await User.findOne({PhonNumber})
