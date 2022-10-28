@@ -111,7 +111,7 @@ app.use(errHandler);
 
  
 
-
+/*
 //customer data
 app.get('/',requireToken,(res,req)=>{
     res.send({
@@ -126,7 +126,7 @@ app.get('/',requireToken,(res,req)=>{
 
 })
 
-
+*/
 
 //Admin data
 

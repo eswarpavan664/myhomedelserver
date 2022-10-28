@@ -381,7 +381,7 @@ router.put('/UpdateItemDetails',async (req,res)=>{
   })
 })
 
-
+/*
 router.post('/UserSignin',async (req,res)=>{
     const {email,password} = req.body
     if(!email || !password){
@@ -401,7 +401,7 @@ router.post('/UserSignin',async (req,res)=>{
 
 })
 
-
+*/
 
 
 // Admin siginin 
