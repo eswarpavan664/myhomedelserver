@@ -129,7 +129,11 @@ app.get('/',requireToken,(res,req)=>{
 */
 
 //Admin data
+app.get('/',(req,res)=>{
 
+    res.send({"Server":"Server is running...."});
+
+})
 app.get('/GetAdmin',requireTokenAdmin,(req,res)=>{
     res.send({
         email:req.user.email,
