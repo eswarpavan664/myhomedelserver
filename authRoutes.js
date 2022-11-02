@@ -512,16 +512,17 @@ router.get('/GetItems', function(req, res, next) {
     });
   }
   else if(itemname==="All" && veg!=="All"){
-    Item.find({ShopId:id,ItemCategory:veg},(err, docs) => {
-      if (!err) {
+    Item.find({ShopId:id,ItemType:veg},(err, docs) => {
+      if (docs.length>0) {
            res.send(docs);
+           console.log("hhhhhh")
       } else {
           console.log('Failed to retrieve the Course List: ' + err);
       }
     });
   }
   else if(itemname!=="All" && veg==="All"){
-    Item.find({ShopId:id,ItemType:itemname},(err, docs) => {
+    Item.find({ShopId:id,ItemCategory:itemname},(err, docs) => {
       if (!err) {
            res.send(docs);
       } else {
@@ -530,7 +531,7 @@ router.get('/GetItems', function(req, res, next) {
     });
   }
   else{
-    Item.find({ShopId:id,ItemType:itemname,ItemCategory:veg},(err, docs) => {
+    Item.find({ShopId:id,ItemType:veg,ItemCategory:itemname},(err, docs) => {
       if (!err) {
            res.send(docs);
       } else {
@@ -538,7 +539,7 @@ router.get('/GetItems', function(req, res, next) {
       }
     });
   }
-  console.log(veg)
+  console.log(veg,itemname,id)
 
 });
 
