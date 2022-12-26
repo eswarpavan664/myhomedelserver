@@ -90,9 +90,7 @@ app.get('/GetAdmin',requireTokenAdmin,(req,res)=>{
         _id:req.user._id,
         DeliveryTime:req.user.DeliveryTime,
         ShopStatus:req.user.ShopStatus
-    })
-
-    
+    })  
 })
 
 

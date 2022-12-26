@@ -8,6 +8,7 @@ const AdminUser = mongoose.model('AdminUser')
 
 module.exports = (req,res,next)=>{
     const { authorization } = req.headers;
+    console.log("auth = = ", authorization)
     //authorization === Bearer sfafsafa
     if(!authorization){
         return res.status(401).send({error:"you must be logged in"})
