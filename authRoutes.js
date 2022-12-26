@@ -624,7 +624,7 @@ router.get('/deleteAdmins', function (req, res) {
       console.log("Deleted successfully");
     }
   });
-
+ bn
   res.json({ success: id })
 });
 
