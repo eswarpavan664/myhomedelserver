@@ -1,9 +1,40 @@
- 
-  // Multiple Files Route Handler
-app.post("/multiple", upload.array("images", 3), (req, res) => {
-    console.log(req.files);
-    res.send("Multiple Files Upload Success");
+const express = require("express");
+
+const app = express();
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const fast2sms = require("fast-two-sms");
+const { mogoUrl } = require("./keys");
+mongoose.connect(mogoUrl);
+
+require("./models");
+
+const requireTokenAdmin =require('./requireDeliveryToken')
+
+const requireDeliveryToken =require('./requireDeliveryToken')
+const authRoutes = require("./authRoutes");
+app.use(cors());
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(authRoutes);
+
+mongoose.connect(mogoUrl, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 });
+mongoose.connection.on("connected", () => {
+  console.log("database connected ...");
+});
+
+mongoose.connection.on("error", (err) => {
+  console.log("error occered... ", err);
+});
+
+
+
+ 
   
 function errHandler(err, req, res, next) {
     if (err instanceof multer.MulterError) {
