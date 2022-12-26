@@ -10,7 +10,7 @@ mongoose.connect(mogoUrl);
 
 require("./models");
 
-const requireTokenAdmin =require('./requireDeliveryToken')
+const requireTokenAdmin =require('./requireTokenAdmin')
 
 const requireDeliveryToken =require('./requireDeliveryToken')
 const authRoutes = require("./authRoutes");
