@@ -497,6 +497,36 @@ router.get('/GetRestorents', function(req, res, next) {
 
 
 
+// get all restorents for admin
+
+
+router.get('/GetRestorentsForAdmins', function(req, res, next) {
+  const id =  req.query.id;
+  if(id==="All" ||id===""){
+    AdminUser.find((err, docs) => {
+      if (!err) {
+           res.send(docs);
+      } else {
+          console.log('Failed to retrieve the Course List: ' + err);
+      }
+    });
+  }
+  else{
+      AdminUser.find({AdminId:id},(err, docs) => {
+        if (!err) {
+            res.send(docs);
+        } else {
+            console.log('Failed to retrieve the Course List: ' + err);
+        }
+     });
+  }
+  
+
+});
+
+
+
+
 router.get('/GetItems', function(req, res, next) {
   const id=  req.query.id;
   const itemname = req.query.itemname;
@@ -678,6 +708,40 @@ router.get('/GetOrders', function(req, res, next) {
   
 
 });
+
+// get orders for analatics
+router.get('/GetOrderAnalytics',(req,res)=>{
+
+  const id =  req.query.id;
+  const Type =  req.query.Type;
+  
+  console.log(id)
+  if(Type){
+      Orders.find({AdminId:id,OrderStatus:'Delivered'},(err, docs) => {
+        if (!err) {
+            res.send(docs);
+        } else {
+          res.send("Error")
+            console.log('Failed to retrieve the Course List: ' + err);
+        }
+    });
+  }
+  else{
+    Orders.find({AdminId:id},(err, docs) => {
+      if (!err) {
+           res.send(docs);
+      } else {
+          console.log('Failed to retrieve the Course List: ' + err);
+      }
+  });
+  }
+  console.log(Type)
+
+
+})
+ 
+
+ 
 
 
 router.get('/GetOrdersForSuperAdmin', function(req, res, next) {

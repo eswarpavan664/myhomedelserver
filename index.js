@@ -13,6 +13,8 @@ require("./models");
 const requireTokenAdmin =require('./requireTokenAdmin')
 
 const requireDeliveryToken =require('./requireDeliveryToken')
+
+
 const authRoutes = require("./authRoutes");
 app.use(cors());
 app.use(express.json());
